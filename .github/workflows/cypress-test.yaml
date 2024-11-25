@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-  
 
 jobs:
   test:
@@ -17,10 +16,13 @@ jobs:
       - name: Set Up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '16'
+          node-version: '20'
 
       - name: Install Dependencies
-        run: npm install
+        run: npm ci # Use npm ci for clean installs in CI environments
+
+      - name: Verify Cypress Installation
+        run: npx cypress verify # Ensures Cypress is installed correctly
 
       - name: Set Environment Variables
         env:
@@ -29,3 +31,5 @@ jobs:
 
       - name: Run Cypress Tests
         run: npx cypress run
+        env:
+          CYPRESS_CACHE_FOLDER: ~/.cache/Cypress # Optional: Cache Cypress to improve performance
