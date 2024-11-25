@@ -1,0 +1,31 @@
+name: Cypress Email Validation
+
+on:
+  push:
+    branches:
+      - main
+  
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set Up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Set Environment Variables
+        env:
+          TEST_EMAIL: "thestemfresh@gmail.com"
+        run: echo "Test email address set in environment variables."
+
+      - name: Run Cypress Tests
+        run: npx cypress run
